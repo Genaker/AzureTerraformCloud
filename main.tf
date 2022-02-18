@@ -155,6 +155,7 @@ resource "azurerm_linux_virtual_machine" "MagentoVM" {
     admin_username = "magento2"
     ##Change Password or better disable Password and use SSH key
     admin_password      = "DSF@SDfsd3242dgdfg34sdfsdfwer!2323"
+    disable_password_authentication = false
     #disable_password_authentication = true
     #admin_ssh_key {
     #    username       = "magento2"
