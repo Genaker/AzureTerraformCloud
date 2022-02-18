@@ -26,3 +26,17 @@ resource "azurerm_mysql_server" "magento" {
   version                      = "5.7"
   ssl_enforcement              = "Disabled"
 }
+
+resource "azurerm_private_endpoint" "magento" {
+  name                = "msql-endpoint"
+  location            = "eastus"
+  resource_group_name = azurerm_resource_group.rg.name
+  subnet_id           = azurerm_subnet.magento.id
+
+  private_service_connection {
+    name                           = "mysql-privateserviceconnection"
+    private_connection_resource_id = azurerm_mysql_server.magento.id
+    subresource_names              = [ "mysqlServer" ]
+    is_manual_connection           = false
+  }
+}
