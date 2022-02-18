@@ -17,6 +17,10 @@ provider "azurerm" {
 resource "azurerm_resource_group" "rg" {
   name     = "TerraformMagento"
   location = "eastus"
+  
+  tags = {
+        environment = "Terraform Magento"
+    }
 }
 
 ## <https://www.terraform.io/docs/providers/azurerm/r/availability_set.html>
@@ -24,6 +28,10 @@ resource "azurerm_availability_set" "MagentoAset" {
   name                = "magento-aset"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  
+  tags = {
+        environment = "Terraform Magento"
+    }
 }
 
 ## <https://www.terraform.io/docs/providers/azurerm/r/virtual_network.html>
@@ -32,6 +40,10 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  
+  tags = {
+        environment = "Terraform Magento"
+    }
 }
 
 ## <https://www.terraform.io/docs/providers/azurerm/r/subnet.html> 
@@ -40,6 +52,10 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes       = ["10.0.2.0/24"]
+  
+  tags = {
+        environment = "Terraform Magento"
+    }
 }
 
 # Create public IPs
