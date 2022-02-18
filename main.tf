@@ -60,11 +60,16 @@ resource "azurerm_network_interface" "magento" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet.id
-    private_ip_address_allocation = "Dynamic"
-  }
+ ip_configuration {
+   name                          = "MagentoNic"
+   subnet_id                     = azurerm_subnet.subnet.id
+   private_ip_address_allocation = "Dynamic"
+   public_ip_address_id          = azurerm_public_ip.myterraformpublicip.id
+ }
+
+ tags = {
+   environment = "Terraform Magento"
+ }
 }
 
 # Create Network Security Group and rule
@@ -132,7 +137,7 @@ resource "azurerm_storage_account" "magento" {
 
 # Create virtual machine
 resource "azurerm_linux_virtual_machine" "MagentoVM" {
-    name                  = "MAgento-Web"
+    name                  = "Magento-Web-Server"
     location              = "eastus"
     resource_group_name   = azurerm_resource_group.rg.name
     network_interface_ids = [azurerm_network_interface.magento.id]
