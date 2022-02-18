@@ -85,5 +85,9 @@ Input **"yes"** here
 
 ![image](https://user-images.githubusercontent.com/9213670/154621088-50936034-409d-4b6d-b85f-e9599d4a2bad.png)
 
+Done:
+
+![image](https://user-images.githubusercontent.com/9213670/154627480-16c9e94c-6b8b-4ca4-b195-c88b2e02ab4d.png)
+
 
 Azure Doc: https://docs.microsoft.com/en-us/azure/developer/terraform/get-started-cloud-shell-bash?tabs=bash#authenticate-to-azure-via-a-microsoft-account
