@@ -107,38 +107,55 @@ output "tls_private_key" {
 }
 # To get the corresponding private key, run terraform output -raw tls_private_key
 
-## <https://www.terraform.io/docs/providers/azurerm/r/windows_virtual_machine.html>
-resource "azurerm_windows_virtual_machine" "example" {
-  name                = "Magento-Web"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  size                = "Standard_F2"
-  admin_username      = "magento2"
-  ##Change Password or better disable Password and use SSH key
-  admin_password      = "DSF@SDfsd3242dgdfg34sdfsdfwer!2323"
-  #disable_password_authentication = true
-  
-  # admin_ssh_key {
-  #      username       = "azureuser"
-  #      public_key     = tls_private_key.magento_ssh.public_key_openssh
-  #  }
-    
-  availability_set_id = azurerm_availability_set.MagentoAset.id
-  network_interface_ids = [
-    azurerm_network_interface.magento.id,
-  ]
+# Create storage account for boot diagnostics
+resource "azurerm_storage_account" "magento" {
+    name                        = "diag${random_id.randomId.hex}"
+    resource_group_name         = azurerm_resource_group.rg.name
+    location                    = "eastus"
+    account_tier                = "Standard"
+    account_replication_type    = "LRS"
 
-  os_disk {
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-  }
+    tags = {
+        environment = "Terraform Magento"
+    }
+}
 
-  source_image_reference {
+# Create virtual machine
+resource "azurerm_linux_virtual_machine" "MagentoVM" {
+    name                  = "MAgento-Web"
+    location              = "eastus"
+    resource_group_name   = azurerm_resource_group.rg.name
+    network_interface_ids = [azurerm_network_interface.magento.id]
+    size                  = "Standard_DS1_v2"
+
+    os_disk {
+        name              = "myOsDisk"
+        caching           = "ReadWrite"
+        storage_account_type = "Premium_LRS"
+    }
+
+    source_image_reference {
         publisher = "Canonical"
         offer     = "UbuntuServer"
         sku       = "18.04-LTS"
         version   = "latest"
     }
-    computer_name  = "magento"
 
+    computer_name  = "magento"
+    admin_username = "magento2"
+    ##Change Password or better disable Password and use SSH key
+    admin_password      = "DSF@SDfsd3242dgdfg34sdfsdfwer!2323"
+    #disable_password_authentication = true
+    #admin_ssh_key {
+    #    username       = "magento2"
+    #    public_key     = tls_private_key.magento_ssh.public_key_openssh
+    #}
+
+    boot_diagnostics {
+        storage_account_uri = azurerm_storage_account.magento.primary_blob_endpoint
+    }
+
+    tags = {
+        environment = "Terraform Magento"
+    }
 }
