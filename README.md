@@ -45,13 +45,40 @@ export ARM_CLIENT_ID="<service_principal_appid>"
 export ARM_CLIENT_SECRET="<service_principal_password>"
 ```
 
-Run Terraform
+## Run Terraform
 
+# Initialize Terraform
+Run terraform init to initialize the Terraform deployment. This command downloads the Azure modules required to manage your Azure resources.
+
+```
+terraform init
+```
+# Create a Terraform execution plan
+Run terraform plan to create an execution plan.
+
+```
+terraform plan -out main.tfplan
+```
+
+The terraform plan command creates an execution plan, but doesn't execute it. Instead, it determines what actions are necessary to create the configuration specified in your configuration files. This pattern allows you to verify whether the execution plan matches your expectations before making any changes to actual resources.
+The optional -out parameter allows you to specify an output file for the plan. Using the -out parameter ensures that the plan you reviewed is exactly what is applied.
+To read more about persisting execution plans and security, see the security warning section.
+
+# Apply a Terraform execution plan
+Run terraform apply to apply the execution plan to your cloud infrastructure.
+
+```
+terraform apply main.tfplan
+```
+
+The terraform apply command above assumes you previously ran terraform plan -out main.tfplan.
+If you specified a different filename for the -out parameter, use that same filename in the call to terraform apply.
+If you didn't use the -out parameter, simply call terraform apply without any parameters.
+
+or just:
 ```
 terraform plan
 terraform apply
 ```
-
-
 
 Azure Doc: https://docs.microsoft.com/en-us/azure/developer/terraform/get-started-cloud-shell-bash?tabs=bash#authenticate-to-azure-via-a-microsoft-account
