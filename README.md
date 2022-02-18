@@ -89,6 +89,12 @@ Done:
 
 ![image](https://user-images.githubusercontent.com/9213670/154627480-16c9e94c-6b8b-4ca4-b195-c88b2e02ab4d.png)
 
+Destroy magento resources
+
+```
+terraform plan -destroy 
+```
+
 # Connect via SSH
 
 ![image](https://user-images.githubusercontent.com/9213670/154628028-27fb2a7f-24e1-441f-9d07-73c4daebe999.png)
