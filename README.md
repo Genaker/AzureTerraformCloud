@@ -1,4 +1,6 @@
-## AzureTerraformCloud
+## Azure Terraform MAgento Cloud Simple Configuration 
+
+![image](https://user-images.githubusercontent.com/9213670/154635256-74b9aed8-c9c3-46c0-8a95-92cd26ef58f1.png)
 
 # Open Azure Account
 
