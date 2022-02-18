@@ -81,4 +81,9 @@ terraform plan
 terraform apply
 ```
 
+Input **"yes"** here
+
+![image](https://user-images.githubusercontent.com/9213670/154621088-50936034-409d-4b6d-b85f-e9599d4a2bad.png)
+
+
 Azure Doc: https://docs.microsoft.com/en-us/azure/developer/terraform/get-started-cloud-shell-bash?tabs=bash#authenticate-to-azure-via-a-microsoft-account
