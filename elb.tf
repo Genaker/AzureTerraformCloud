@@ -221,4 +221,30 @@ resource "azurerm_monitor_autoscale_setting" "example" {
   }  
 }
 
+resource "azurerm_lb_nat_rule" "example" {
+  resource_group_name            = azurerm_resource_group.example.name
+  loadbalancer_id                = azurerm_lb.example.id
+  name                           = "RDPAccess"
+  protocol                       = "Tcp"
+  frontend_port                  = 3389
+  backend_port                   = 3389
+  frontend_ip_configuration_name = "primary"
+}
 
+resource "azurerm_network_interface" "example" {
+  name                = "example-nic"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+
+  ip_configuration {
+    name                          = "testconfiguration1"
+    subnet_id                     = azurerm_subnet.example.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_network_interface_nat_rule_association" "example" {
+  network_interface_id  = azurerm_network_interface.example.id
+  ip_configuration_name = "testconfiguration1"
+  nat_rule_id           = azurerm_lb_nat_rule.example.id
+}
