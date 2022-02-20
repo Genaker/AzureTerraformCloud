@@ -1,3 +1,7 @@
+Have you created an Azure Magento Infrastructre via the Azure portal UI before? If so, how many wor and cliks did it take to do that? Can you do it, again and again, providing the exact same input values to ensure you meet a specific infrastructure? Probably not. You need to automate the process. Create Azure Magento infrastructure with Terraform!
+
+Terraform and Hashicorp is a tool to creates simple to complex Magento infrastructure on-prem or in the real cloud and Not a Adobbes Commerce Cloun(d) solutions. Terraform is wtiten on GO and compiled into binnary binary file that reads Magento infrastructure configuration files, creates a state and then ensures your Magento infrastructure is beter and chiper then official Adobe's Magento Cloud.
+
 ## Azure Terraform MAgento Cloud Simple Configuration 
 
 ![image](https://user-images.githubusercontent.com/9213670/154635256-74b9aed8-c9c3-46c0-8a95-92cd26ef58f1.png)
